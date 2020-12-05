@@ -17,6 +17,11 @@
 #include <stdio.h>
 #include <string.h>
 #include <sys/stat.h>
+#include <time.h>
+#include <dirent.h>
+#include <fcntl.h>
+#include <pwd.h>
+#include <grp.h>
 
 /*
   Function Declarations for builtin shell commands:

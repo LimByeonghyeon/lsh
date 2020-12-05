@@ -23,6 +23,7 @@
 int lsh_cd(char **args);
 int lsh_help(char **args);
 int lsh_exit(char **args);
+int os11_ls(char **args);
 
 /*
   List of builtin commands, followed by their corresponding functions.
@@ -30,13 +31,15 @@ int lsh_exit(char **args);
 char *builtin_str[] = {
   "cd",
   "help",
-  "exit"
+  "exit",
+  "ls"
 };
 
 int (*builtin_func[]) (char **) = {
   &lsh_cd,
   &lsh_help,
-  &lsh_exit
+  &lsh_exit,
+  &os11_ls
 };
 
 int lsh_num_builtins() {
@@ -93,6 +96,81 @@ int lsh_exit(char **args)
 {
   return 0;
 }
+
+void os11_ls(int ac, char *av[])
+{
+	DIR *dp;
+	struct dirent *entry;
+	char *path;
+	int count;
+	int opt_a;
+	int opt_l;
+
+	// 인자가 없을 경우 자기 자신의 디렉토리로 설정한다.
+	if(ac < 2)
+	{
+		path = ".";
+	}
+	
+	// 인자가 있을 경우 설정
+	else
+	{
+		path = av[1];
+	}
+
+	// 디렉토리를 연다.
+	if((dp = opendir(path)) == NULL)
+	{
+		fprintf(stderr, "Can't open directory: %s", av[1]);
+		return;
+	}
+
+	// 다음의 인자들이 존재하는지 확인
+	opt_a = check_arg(av, "-a");
+	opt_l = check_arg(av, "-l");
+
+	count = 0;
+
+	// 파일이나 디렉토리를 읽어들인다.
+	while((entry = readdir(dp)) != NULL)
+	{
+		// -a 옵션이 없을 경우 숨김 파일은 표시하지 않는다.
+		if(!opt_a)
+		{
+			if(entry->d_name[0] == '.')
+			{
+				continue;
+			}
+		}
+		
+		// 출력
+		printf("%s\t", entry->d_name);
+
+		// -l 옵션이 설정되어있을 경우 줄마다 한원소씩을 출력한다.
+		if(opt_l)
+		{
+			printf("\n");
+		}
+		
+		// 한줄에 3개씩 출력한다.
+		else
+		{
+			if(count > 3)
+			{
+				printf("\n");
+				count = 0;
+			}
+			else
+			{
+				count++;
+			}
+		}
+	}
+
+	// 디렉토리를 닫는다.
+	closedir(dp);
+	printf("\n");
+}	
 
 /**
   @brief Launch a program and wait for it to terminate.

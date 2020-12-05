@@ -116,6 +116,22 @@ int mymkdir(int argc,char *argv[])
 
 	return 0;
 }
+int mypwd()
+{
+	char buffer[100];
+	
+	if(getcwd(buffer,sizeof(buffer)))//Get current working directory and store it in buffer.
+	{
+		printf("%s\n",buffer);
+	}
+	else
+	{
+		perror("getcwd");//Display the error occurred with getcwd.
+	}
+	
+	return 0;
+}
+
 
 /**
   @brief Launch a program and wait for it to terminate.

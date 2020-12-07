@@ -29,7 +29,7 @@
 int lsh_cd(char **args);
 int lsh_help(char **args);
 int lsh_exit(char **args);
-int myls(char **args);
+// int myls(char **args);
 
 /*
   List of builtin commands, followed by their corresponding functions.
@@ -38,14 +38,14 @@ char *builtin_str[] = {
   "cd",
   "help",
   "exit",
-	"ls"
+// 	"ls"
 };
 
 int (*builtin_func[]) (char **) = {
   &lsh_cd,
   &lsh_help,
   &lsh_exit,
-	&myls
+// 	&myls
 };
 
 int lsh_num_builtins() {
@@ -134,7 +134,7 @@ int mypwd()
 	
 	return 0;
 }
-
+/*
 int myls(char *argv){
 	DIR *pdir;
 	struct dirent *pde;
@@ -184,7 +184,7 @@ int myls(char *argv){
 	ls(argv[1]);
 	return 0;
 }
-
+*/
 /**
   @brief Launch a program and wait for it to terminate.
   @param args Null terminated list of arguments (including program).

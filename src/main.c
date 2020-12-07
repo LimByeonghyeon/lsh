@@ -29,7 +29,7 @@
 int lsh_cd(char **args);
 int lsh_help(char **args);
 int lsh_exit(char **args);
-int ls(char **args);
+int myls(char **args);
 
 /*
   List of builtin commands, followed by their corresponding functions.
@@ -45,7 +45,7 @@ int (*builtin_func[]) (char **) = {
   &lsh_cd,
   &lsh_help,
   &lsh_exit,
-	&ls
+	&myls
 };
 
 int lsh_num_builtins() {
@@ -135,7 +135,7 @@ int mypwd()
 	return 0;
 }
 
-int ls(char *argv){
+int myls(char *argv){
 	DIR *pdir;
 	struct dirent *pde;
 	struct stat buf;
@@ -177,7 +177,7 @@ int ls(char *argv){
 	closedir(pdir);
 	chdir("..");
 	
-	if(argc < 2){
+	if(argv < 2){
 		fprintf(stderr, "Usage : file_dir dirname.\n");
 		return 1;
 	}

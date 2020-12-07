@@ -176,16 +176,16 @@ int mypwd()
 	printf("\n");
 	closedir(pdir);
 	chdir("..");
-	/*
+	
 	if(argv < 2){
 		fprintf(stderr, "Usage : file_dir dirname.\n");
 		return 1;
 	}
 	ls(argv[1]);
 	return 0;
-	*/
-}
-*/
+	
+}*/
+
 
 int myls(int argc, char *argv[])
 {	

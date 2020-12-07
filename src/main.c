@@ -29,7 +29,7 @@
 int lsh_cd(char **args);
 int lsh_help(char **args);
 int lsh_exit(char **args);
-int myls(char *args[]);
+int myls(int argc, char *args[]);
 
 /*
   List of builtin commands, followed by their corresponding functions.
